@@ -9,6 +9,7 @@
     "src",
     "index.ts"
   ],
+  "workspaces": ["demo"],
   "keywords": [
     "astro-component"
   ],
