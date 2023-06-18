@@ -1,6 +1,6 @@
 {
   "name": "maps-withastro",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "exports": {
     ".": "./index.ts"
@@ -9,15 +9,21 @@
     "src",
     "index.ts"
   ],
-  "workspaces": ["demo"],
+  "workspaces": [
+    "demo"
+  ],
   "keywords": [
     "astro-component"
   ],
   "scripts": {},
   "devDependencies": {
+    "@types/leaflet": "^1.9.3",
     "astro": "^2.6.4"
   },
   "peerDependencies": {
     "astro": "^2.0.0-beta.0"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4"
   }
 }

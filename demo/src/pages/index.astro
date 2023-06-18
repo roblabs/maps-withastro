@@ -1,5 +1,6 @@
 ---
 import { MyComponent } from "maps-withastro"
+import { Leaflet } from "maps-withastro"
 ---
 
 <html lang="en">
@@ -16,5 +17,14 @@ import { MyComponent } from "maps-withastro"
 		<MyComponent prefix="hello world"/>
 
 		<h1>Astro</h1>
+
+		<Leaflet
+			latitude="32.795595"
+			longitude="-117.259191"
+			zoom="10"
+			container="map"
+			tileLayer="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+			attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+		/>
 	</body>
 </html>

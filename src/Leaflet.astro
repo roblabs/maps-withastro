@@ -1,0 +1,45 @@
+---
+import "leaflet/dist/leaflet.css"
+export interface Props {
+  latitude: number
+  longitude: number
+  zoom: number
+  /** the DOM ID of a <div> element */
+  container: string
+  /** https://leafletjs.com/reference.html#tilelayer */
+  tileLayer: string
+  /** Most tile servers require attribution. */
+  attribution: string
+}
+
+const { latitude, longitude, zoom, container, tileLayer, attribution } = Astro.props
+---
+
+<leaflet-map
+  data-latitude={latitude} 
+  data-longitude={longitude} 
+  data-zoom={zoom}
+  data-container={container}
+  data-tiles={tileLayer}
+  data-attribution={attribution}
+>
+<div id={container} style="height: 61.8vh"></div>
+<script>
+  import L from "leaflet"
+  
+  class LeafletMap extends HTMLElement {
+    constructor() {
+      super()
+
+      const latlng: [number, number] = [Number(this.dataset.latitude), Number(this.dataset.longitude)]
+
+      var map = L.map(this.dataset.container).setView(latlng, Number(this.dataset.zoom))
+      L.tileLayer(
+        this.dataset.tiles,
+        {attribution: this.dataset.attribution}
+        ).addTo(map)
+    }
+  }
+
+  customElements.define("leaflet-map", LeafletMap);
+</script>

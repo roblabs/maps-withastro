@@ -1,8 +1,38 @@
-# Creating an Astro Component template
+# Creating an Astro Component template for Web Maps
+
+https://Astro.build is a great start for creating web sites.  This project allows you to bring Leaflet & MapLibre maps directly into Astro.
+
+## Architecture
+
+The architecture is to pass in Astro properties via an HTMLElement dataset property.  The pattern for the Leaflet map example is from an Astro project called `hello-astro`.  
+
+```JavaScript
+// Copyright (c) 2022 Hello Tham Pty Ltd.  https://github.com/hellotham/hello-astro 
+// SPDX-License-Identifier: MIT
+```
+
+See https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset
+ 
+### Leaflet with Astro
+
+See [demo/src/pages/index.astro](demo/src/pages/index.astro).
+
+```jsx
+<Leaflet
+  latitude="32.795595"
+  longitude="-117.259191"
+  zoom="10"
+  container="map"
+  tileLayer="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+/>
+```
 
 # How to Replicate
 
 Here are the steps taken to create this repo containing the Maps with Astro components. See https://docs.astro.build/en/reference/publish-to-npm
+
+You can make use of these notes if you want to extend the Map components with Astro beyond Leaflet or MapLibre.
 
 ## Astro Component
 
@@ -22,6 +52,14 @@ We followed these notes to add `demo/` in the root of this project.
 pnpm create astro@latest demo -- --template minimal
 ```
 
+### Leaflet dependencies
+
+```bash
+# done for you, left here for replication notes
+# pnpm install leaflet --workspace-root
+# pnpm install @types/leaflet --save-dev --workspace-root
+```
+
 ## 🚀 Project Structure
 
 Inside of your Astro project, you'll see the following folders and files:
@@ -33,6 +71,7 @@ Inside of your Astro project, you'll see the following folders and files:
 │   └── Demo Astro project
 ├── src
 │   └── MyComponent.astro
+│   └── Leaflet.astro
 ├── tsconfig.json
 ├── package.json
 ```
