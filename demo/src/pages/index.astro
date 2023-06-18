@@ -1,6 +1,7 @@
 ---
 import { MyComponent } from "maps-withastro"
 import { Leaflet } from "maps-withastro"
+import { MapLibre } from "maps-withastro"
 ---
 
 <html lang="en">
@@ -19,12 +20,22 @@ import { Leaflet } from "maps-withastro"
 		<h1>Astro</h1>
 
 		<Leaflet
+			container="leafletmap"
 			latitude="32.795595"
 			longitude="-117.259191"
 			zoom="10"
-			container="map"
 			tileLayer="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 			attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+		/>
+
+		<hr/>
+
+		<MapLibre
+			container="maplibremap"
+			latitude="32.795595"
+			longitude="-117.259191"
+			zoom="10"
+			mapstyle="https://demotiles.maplibre.org/style.json"
 		/>
 	</body>
 </html>

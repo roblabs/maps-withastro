@@ -18,13 +18,25 @@ See https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset
 See [demo/src/pages/index.astro](demo/src/pages/index.astro).
 
 ```jsx
-<Leaflet
-  latitude="32.795595"
-  longitude="-117.259191"
-  zoom="10"
-  container="map"
-  tileLayer="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+<Leaflet 
+  latitude={latitude}
+  longitude={longitude}
+  zoom={zoom}
+  container="leafletmap"
+  tileLayer={tileLayer}
+  attribution={attribution}
+/>
+```
+
+### MapLibre with Astro
+
+```jsx
+<MapLibre
+  container="maplibremap"
+  latitude={latitude}
+  longitude={longitude}
+  zoom={zoom}
+  mapstyle={mapstyle}
 />
 ```
 
@@ -58,6 +70,13 @@ pnpm create astro@latest demo -- --template minimal
 # done for you, left here for replication notes
 # pnpm install leaflet --workspace-root
 # pnpm install @types/leaflet --save-dev --workspace-root
+```
+
+### MapLibre dependencies
+
+```bash
+# done for you, left here for replication notes
+# pnpm install maplibre-gl --workspace-root
 ```
 
 ## 🚀 Project Structure
