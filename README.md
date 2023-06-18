@@ -40,6 +40,18 @@ See [demo/src/pages/index.astro](demo/src/pages/index.astro).
 />
 ```
 
+### Mapbox with Astro
+
+```jsx
+<MapLibre
+  container="mapboxmap"
+  latitude={latitude}
+  longitude={longitude}
+  zoom={zoom}
+  mapstyle={mapstyle}
+/>
+```
+
 # How to Replicate
 
 Here are the steps taken to create this repo containing the Maps with Astro components. See https://docs.astro.build/en/reference/publish-to-npm
@@ -77,6 +89,13 @@ pnpm create astro@latest demo -- --template minimal
 ```bash
 # done for you, left here for replication notes
 # pnpm install maplibre-gl --workspace-root
+```
+
+### Mapbox dependencies
+
+```bash
+# done for you, left here for replication notes
+# pnpm install mapbox-gl --workspace-root
 ```
 
 ## 🚀 Project Structure

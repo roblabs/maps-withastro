@@ -1,0 +1,43 @@
+---
+import "mapbox-gl/dist/mapbox-gl.css"
+export interface Props {
+  latitude: number
+  longitude: number
+  zoom: number
+  mapstyle: string
+  container: string
+  interactive?: boolean
+}
+
+const { latitude, longitude, zoom, mapstyle, container, interactive} = Astro.props
+
+---
+
+<maplibre-map
+  data-latitude={latitude} 
+  data-longitude={longitude} 
+  data-zoom={zoom}
+  data-mapstyle={mapstyle}
+  data-container={container}
+  data-interactive={interactive}
+>
+<div id={container} style="height: 61.8vh"></div>
+<script>
+  import mapboxgl from "mapbox-gl"
+
+  class MapboxMap extends HTMLElement {
+    constructor() {
+      super()
+
+      var map = new mapboxgl.Map({
+        container: this.dataset.container,
+        interactive: this.dataset.interactive,
+        center: [this.dataset.longitude, this.dataset.latitude],
+        zoom: this.dataset.zoom,
+        style: this.dataset.mapstyle
+      })
+    }
+  }
+
+  customElements.define("mapbox-map", MapboxMap);
+</script>
