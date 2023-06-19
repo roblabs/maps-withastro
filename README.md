@@ -43,12 +43,23 @@ See [demo/src/pages/index.astro](demo/src/pages/index.astro).
 ### Mapbox with Astro
 
 ```jsx
-<MapLibre
+<Mapbox
   container="mapboxmap"
   latitude={latitude}
   longitude={longitude}
   zoom={zoom}
   mapstyle={mapstyle}
+/>
+```
+
+### MapKit with Astro
+
+```jsx
+<MapKit
+  container="mapkitmap"
+  latitude={latitude}
+  longitude={longitude}
+  cameradistance={cameradistance}
 />
 ```
 
@@ -96,6 +107,15 @@ pnpm create astro@latest demo -- --template minimal
 ```bash
 # done for you, left here for replication notes
 # pnpm install mapbox-gl --workspace-root
+```
+
+### MapKit dependencies
+
+* https://www.npmjs.com/package/@types/apple-mapkit-js-browser
+
+```bash
+# done for you, left here for replication notes
+# pnpm install @types/apple-mapkit-js-browser --save-dev --workspace-root
 ```
 
 ## 🚀 Project Structure

@@ -1,0 +1,62 @@
+---
+export interface Props {
+  /** The latitude, in degrees. */
+  latitude: number
+  /** The longitude, in degrees. */
+  longitude: number
+  /** The altitude of the camera relative to the elevation of the center of the map. https://developer.apple.com/documentation/mapkitjs/map/3257749-cameradistance */
+  cameradistance: number
+  /** A DOM element, or the ID of a DOM element, to use as your map’s container.  https://developer.apple.com/documentation/mapkitjs/map/2973920-mapkit_map#parameters */
+  container: string
+}
+
+const { 
+  latitude, longitude,
+  cameradistance,
+  container
+} = Astro.props
+
+---
+
+<mapkit-map
+  data-latitude={latitude}
+  data-longitude={longitude}
+  data-cameradistance={cameradistance}
+  data-container={container}
+>
+<div id={container} style="height: 61.8vh"></div>
+
+{/* Astro specific way to pull in MapKit JS, `is:inline`:  https://docs.astro.build/en/reference/directives-reference/#isinline */}
+<script is:inline src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
+
+<script>
+
+  class MapKitMap extends HTMLElement {
+    constructor() {
+      super()
+
+      mapkit.init({
+            authorizationCallback: function(done) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "https://roblabs.com/services/jwt");
+                xhr.addEventListener("load", function() {
+                    done(this.responseText);
+                });
+                xhr.send();
+            }
+        });
+
+        var map = new mapkit.Map(this.dataset.container)        
+        map.center = new mapkit.Coordinate(Number(this.dataset.latitude), Number(this.dataset.longitude))
+        // map.cameraZoomRange = new mapkit.CameraZoomRange(0, 15000)
+        map.cameraDistance = Number(this.dataset.cameradistance)
+
+        map.addEventListener("region-change-end", function(event)    {
+          console.log(`cameraDistance: ${mapkit.maps[0].cameraDistance.toFixed(3)}`
+          );
+        });
+    }
+  }
+
+  customElements.define("mapkit-map", MapKitMap);
+</script>

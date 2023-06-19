@@ -3,6 +3,7 @@ import { MyComponent } from "maps-withastro"
 import { Leaflet } from "maps-withastro"
 import { MapLibre } from "maps-withastro"
 import { Mapbox } from "maps-withastro"
+import { MapKit } from "maps-withastro"
 ---
 
 <html lang="en">
@@ -49,6 +50,16 @@ import { Mapbox } from "maps-withastro"
 			longitude="-117.259191"
 			zoom="3"
 			mapstyle="https://roblabs.com/xyz-raster-sources/styles/naturalearthtiles.json"
+		/>
+
+		<hr/>
+
+		MapKit with Astro
+		<MapKit
+			container="mapkitmap"
+			latitude="32.795595"
+			longitude="-117.259191"
+			cameradistance="1000"
 		/>
 
 	</body>
