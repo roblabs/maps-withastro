@@ -14,8 +14,8 @@ const { latitude, longitude, zoom, mapstyle, container, interactive} = Astro.pro
 ---
 
 <maplibre-map
-  data-latitude={latitude} 
-  data-longitude={longitude} 
+  data-latitude={latitude}
+  data-longitude={longitude}
   data-zoom={zoom}
   data-mapstyle={mapstyle}
   data-container={container}
@@ -31,7 +31,7 @@ const { latitude, longitude, zoom, mapstyle, container, interactive} = Astro.pro
 
       var map = new maplibregl.Map({
         container: this.dataset.container,
-        interactive: this.dataset.interactive,
+        interactive: JSON.parse(this.dataset.interactive),
         center: [this.dataset.longitude, this.dataset.latitude],
         zoom: this.dataset.zoom,
         style: this.dataset.mapstyle
