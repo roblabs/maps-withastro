@@ -6,19 +6,21 @@ export interface Props {
   zoom: number
   mapstyle: string
   container: string
+  accesstoken: string
   interactive?: boolean
 }
 
-const { latitude, longitude, zoom, mapstyle, container, interactive} = Astro.props
+const { latitude, longitude, zoom, mapstyle, container, accesstoken, interactive} = Astro.props
 
 ---
 
-<maplibre-map
+<mapbox-map
   data-latitude={latitude}
   data-longitude={longitude}
   data-zoom={zoom}
   data-mapstyle={mapstyle}
   data-container={container}
+  data-accesstoken={accesstoken}
   data-interactive={interactive}
 >
 <div id={container} style="height: 61.8vh"></div>
@@ -29,6 +31,7 @@ const { latitude, longitude, zoom, mapstyle, container, interactive} = Astro.pro
     constructor() {
       super()
 
+      mapboxgl.accessToken = this.dataset.accesstoken
       var map = new mapboxgl.Map({
         container: this.dataset.container,
         interactive: JSON.parse(this.dataset.interactive),
