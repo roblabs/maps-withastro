@@ -8,12 +8,14 @@ export interface Props {
   cameradistance: number
   /** A DOM element, or the ID of a DOM element, to use as your map’s container.  https://developer.apple.com/documentation/mapkitjs/map/2973920-mapkit_map#parameters */
   container: string
+  interactive?: boolean
 }
 
 const { 
   latitude, longitude,
   cameradistance,
-  container
+  container,
+  interactive
 } = Astro.props
 
 ---
@@ -23,6 +25,7 @@ const {
   data-longitude={longitude}
   data-cameradistance={cameradistance}
   data-container={container}
+  data-interactive={interactive}
 >
 <div id={container} style="height: 61.8vh"></div>
 
@@ -50,6 +53,26 @@ const {
         map.center = new mapkit.Coordinate(Number(this.dataset.latitude), Number(this.dataset.longitude))
         // map.cameraZoomRange = new mapkit.CameraZoomRange(0, 15000)
         map.cameraDistance = Number(this.dataset.cameradistance)
+
+        if(JSON.parse(this.dataset.interactive) === false) {
+          // https://developer.apple.com/documentation/mapkitjs/mapconstructoroptions
+          // set MapKit JS values to disable interactivity
+
+          /** A Boolean value that determines whether the user may zoom in and out on the map using pinch gestures or the zoom control. */
+          map.isZoomEnabled = false
+
+          /** A Boolean value that determines whether to display a control for zooming in and zooming out on a map. */
+          map.showsZoomControl = false
+          
+          /** A Boolean value that determines whether the user may rotate the map using the compass control or a rotate gesture. */
+          map.isRotationEnabled = false
+
+          /** A Boolean value that determines whether to display a control that lets users choose the map type. */
+          map.showsMapTypeControl = false
+
+          /**  A Boolean value that determines whether the user may scroll the map with a pointing device or gestures on a touchscreen. */
+          map.isScrollEnabled = false
+        }
 
         map.addEventListener("region-change-end", function(event)    {
           console.log(`cameraDistance: ${mapkit.maps[0].cameraDistance.toFixed(3)}`

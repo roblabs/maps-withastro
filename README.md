@@ -37,6 +37,7 @@ See [demo/src/pages/index.astro](demo/src/pages/index.astro).
   longitude={longitude}
   zoom={zoom}
   mapstyle={mapstyle}
+  interactive="true"
 />
 ```
 
@@ -49,6 +50,7 @@ See [demo/src/pages/index.astro](demo/src/pages/index.astro).
   longitude={longitude}
   zoom={zoom}
   mapstyle={mapstyle}
+  interactive="false"
 />
 ```
 
@@ -60,6 +62,7 @@ See [demo/src/pages/index.astro](demo/src/pages/index.astro).
   latitude={latitude}
   longitude={longitude}
   cameradistance={cameradistance}
+  interactive="false"
 />
 ```
 

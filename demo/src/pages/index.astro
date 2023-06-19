@@ -57,13 +57,23 @@ import { MapKit } from "maps-withastro"
 
 		<hr/>
 
-		MapKit with Astro
+		MapKit with Astro, interactive="false"
 		<MapKit
-			container="mapkitmap"
+			container="mapkitmap-interactive-false"
 			latitude="32.795595"
 			longitude="-117.259191"
-			cameradistance="1000"
+			cameradistance="55000"
+			interactive="false"		
 		/>
 
+		<br>
+		MapKit with Astro, interactive="true"
+		<MapKit
+			container="mapkitmap-interactive-true"
+			latitude="32.795595"
+			longitude="-117.259191"
+			cameradistance="55000"
+			interactive="true"			
+		/>
 	</body>
 </html>
