@@ -6,6 +6,8 @@ export interface Props {
   zoom: number
   mapstyle: string
   container: string
+
+  /** If `false`, the map will not respond to interaction.  This is a static map built with the full web map rendering API. */
   interactive?: boolean
   containerstyle?: string
 }

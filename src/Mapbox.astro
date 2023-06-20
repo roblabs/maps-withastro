@@ -7,6 +7,8 @@ export interface Props {
   mapstyle: string
   container: string
   accesstoken: string
+
+  /** If `false`, the map will not respond to interaction.  This is a static map built with the full web map rendering API. */
   interactive?: boolean
   containerstyle?: string
 }

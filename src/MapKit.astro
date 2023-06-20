@@ -2,13 +2,19 @@
 export interface Props {
   /** The latitude, in degrees. */
   latitude: number
+
   /** The longitude, in degrees. */
   longitude: number
+  
   /** The altitude of the camera relative to the elevation of the center of the map. https://developer.apple.com/documentation/mapkitjs/map/3257749-cameradistance */
   cameradistance: number
+  
   /** A DOM element, or the ID of a DOM element, to use as your map’s container.  https://developer.apple.com/documentation/mapkitjs/map/2973920-mapkit_map#parameters */
   container: string
+  
+  /** If `false`, the map will not respond to interaction.  This is a static map built with the full web map rendering API. */
   interactive?: boolean
+  
   /**
    * The type of map to display.
 
@@ -21,7 +27,14 @@ export interface Props {
    * `Standard` A street map that shows the position of all roads and some road names.
    */
   maptype?: string
+  
   containerstyle?: string
+  
+  /** Creates a tile overlay with a URL template. https://developer.apple.com/documentation/mapkitjs/mapkit/tileoverlay/2974035-mapkit_tileoverlay */
+  urltemplate?: string
+
+  /** Undocumented MapKit JS feature */
+  showstileinfo?: boolean
 }
 
 const { 
@@ -30,7 +43,9 @@ const {
   container,
   interactive,
   maptype = "Standard",
-  containerstyle = "height: 61.8vh"
+  containerstyle = "height: 61.8vh",
+  urltemplate = "",
+  showstileinfo = false
 } = Astro.props
 
 ---
@@ -43,6 +58,8 @@ const {
   data-interactive={interactive}
   data-maptype={maptype}
   data-containerstyle={containerstyle}
+  data-urltemplate={urltemplate}
+  data-showstileinfo={showstileinfo}
 >
 <div id={container} style={containerstyle}></div>
 
@@ -66,14 +83,23 @@ const {
             }
         });
 
+        //: MARK mapkit.Map
+        // An embeddable interactive map that you add to a webpage.
         var map = new mapkit.Map(this.dataset.container)        
         map.center = new mapkit.Coordinate(Number(this.dataset.latitude), Number(this.dataset.longitude))
         map.cameraDistance = Number(this.dataset.cameradistance)
-        
-        // console.log(this.dataset)
-        var maptype = this.dataset.maptype
 
-        switch (maptype) {
+        //: MARK mapkit.TileOverlay
+        // An overlay that covers an area of the map with bitmapped tiles.
+
+        if(this.dataset.urltemplate != "") {
+          var customOverlayOptions = new mapkit.TileOverlay(this.dataset.urltemplate)
+          map.addTileOverlay(customOverlayOptions)
+        }
+
+        //: MARK mapType
+        // The type of data that the map view displays.
+        switch (this.dataset.maptype) {
           case "Hybrid":
             map.mapType = mapkit.Map.MapTypes.Hybrid
             break;
@@ -85,12 +111,17 @@ const {
           case "Satellite":
             map.mapType = mapkit.Map.MapTypes.Satellite
             break;
+
+            case "Standard":
+            map.mapType = mapkit.Map.MapTypes.Standard
+            break;
         
           default:
             map.mapType = mapkit.Map.MapTypes.Standard
             break;
         }
 
+        // MARK: Interactive or static map
         if(JSON.parse(this.dataset.interactive) === false) {
           // https://developer.apple.com/documentation/mapkitjs/mapconstructoroptions
           // set MapKit JS values to disable interactivity
@@ -111,10 +142,20 @@ const {
           map.isScrollEnabled = false
         }
 
-        map.addEventListener("region-change-end", function(event)    {
-          console.log(`cameraDistance: ${mapkit.maps[0].cameraDistance.toFixed(3)}`
-          );
-        });
+        if(JSON.parse(this.dataset.showstileinfo) === true) {
+          map._impl._showsTileInfo = true
+        }
+
+        // MARK: Event Handlers
+        // https://developer.apple.com/documentation/mapkitjs/mapkit/map/handling_map_events
+        // https://developer.apple.com/documentation/mapkitjs/mapkit/handling_initialization_events
+        map.addEventListener("configuration-change", function (event) { console.log(event.status) })
+        map.addEventListener("error", function (event) { console.log(`❌ error: ${event.status}`) })
+        map.addEventListener("map-type-change", function (event) { console.log(`🗺️ map-type-change ${event.target.mapType}`) })
+        map.addEventListener("region-change-end", function(event) {
+          console.log(`▢ region-change-end 🔎 zoom: ${event.target._impl.zoomLevel}, 📏 cameraDistance: ${event.target.cameraDistance.toFixed(3)}, 📍 center: ${event.target.center}` )
+          event.target._impl._allowWheelToZoom = true
+        })
     }
   }
 
