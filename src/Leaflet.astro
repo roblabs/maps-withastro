@@ -10,9 +10,10 @@ export interface Props {
   tileLayer: string
   /** Most tile servers require attribution. */
   attribution: string
+  containerstyle?: string
 }
 
-const { latitude, longitude, zoom, container, tileLayer, attribution } = Astro.props
+const { latitude, longitude, zoom, container, tileLayer, attribution, containerstyle = "height: 61.8vh" } = Astro.props
 ---
 
 <leaflet-map
@@ -22,8 +23,9 @@ const { latitude, longitude, zoom, container, tileLayer, attribution } = Astro.p
   data-container={container}
   data-tiles={tileLayer}
   data-attribution={attribution}
+  data-containerstyle={containerstyle}
 >
-<div id={container} style="height: 61.8vh"></div>
+<div id={container} style={containerstyle}></div>
 <script>
   import L from "leaflet"
   

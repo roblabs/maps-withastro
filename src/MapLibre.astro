@@ -7,9 +7,10 @@ export interface Props {
   mapstyle: string
   container: string
   interactive?: boolean
+  containerstyle?: string
 }
 
-const { latitude, longitude, zoom, mapstyle, container, interactive} = Astro.props
+const { latitude, longitude, zoom, mapstyle, container, interactive, containerstyle = "height: 61.8vh"} = Astro.props
 
 ---
 
@@ -21,7 +22,7 @@ const { latitude, longitude, zoom, mapstyle, container, interactive} = Astro.pro
   data-container={container}
   data-interactive={interactive}
 >
-<div id={container} style="height: 61.8vh"></div>
+<div id={container} style={containerstyle}></div>
 <script>
   import maplibregl from "maplibre-gl"
 

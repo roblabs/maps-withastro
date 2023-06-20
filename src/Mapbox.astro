@@ -8,9 +8,10 @@ export interface Props {
   container: string
   accesstoken: string
   interactive?: boolean
+  containerstyle?: string
 }
 
-const { latitude, longitude, zoom, mapstyle, container, accesstoken, interactive} = Astro.props
+const { latitude, longitude, zoom, mapstyle, container, accesstoken, interactive, containerstyle = "height: 61.8vh"} = Astro.props
 
 ---
 
@@ -22,8 +23,9 @@ const { latitude, longitude, zoom, mapstyle, container, accesstoken, interactive
   data-container={container}
   data-accesstoken={accesstoken}
   data-interactive={interactive}
+  data-containerstyle={containerstyle}
 >
-<div id={container} style="height: 61.8vh"></div>
+<div id={container} style={containerstyle}></div>
 <script>
   import mapboxgl from "mapbox-gl"
 

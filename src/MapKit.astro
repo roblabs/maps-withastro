@@ -21,6 +21,7 @@ export interface Props {
    * `Standard` A street map that shows the position of all roads and some road names.
    */
   maptype?: string
+  containerstyle?: string
 }
 
 const { 
@@ -28,7 +29,8 @@ const {
   cameradistance,
   container,
   interactive,
-  maptype = "Standard"
+  maptype = "Standard",
+  containerstyle = "height: 61.8vh"
 } = Astro.props
 
 ---
@@ -40,8 +42,9 @@ const {
   data-container={container}
   data-interactive={interactive}
   data-maptype={maptype}
+  data-containerstyle={containerstyle}
 >
-<div id={container} style="height: 61.8vh"></div>
+<div id={container} style={containerstyle}></div>
 
 {/* Astro specific way to pull in MapKit JS, `is:inline`:  https://docs.astro.build/en/reference/directives-reference/#isinline */}
 <script is:inline src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
