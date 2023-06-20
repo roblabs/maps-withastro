@@ -9,13 +9,26 @@ export interface Props {
   /** A DOM element, or the ID of a DOM element, to use as your map’s container.  https://developer.apple.com/documentation/mapkitjs/map/2973920-mapkit_map#parameters */
   container: string
   interactive?: boolean
+  /**
+   * The type of map to display.
+
+   * `Hybrid` A satellite image of the area with road and road name layers on top.
+
+   * `MutedStandard` A street map that emphasizes your data over the underlying map details.
+
+   * `Satellite` A satellite image of the area.
+
+   * `Standard` A street map that shows the position of all roads and some road names.
+   */
+  maptype?: string
 }
 
 const { 
   latitude, longitude,
   cameradistance,
   container,
-  interactive
+  interactive,
+  maptype = "Standard"
 } = Astro.props
 
 ---
@@ -26,6 +39,7 @@ const {
   data-cameradistance={cameradistance}
   data-container={container}
   data-interactive={interactive}
+  data-maptype={maptype}
 >
 <div id={container} style="height: 61.8vh"></div>
 
@@ -51,8 +65,28 @@ const {
 
         var map = new mapkit.Map(this.dataset.container)        
         map.center = new mapkit.Coordinate(Number(this.dataset.latitude), Number(this.dataset.longitude))
-        // map.cameraZoomRange = new mapkit.CameraZoomRange(0, 15000)
         map.cameraDistance = Number(this.dataset.cameradistance)
+        
+        // console.log(this.dataset)
+        var maptype = this.dataset.maptype
+
+        switch (maptype) {
+          case "Hybrid":
+            map.mapType = mapkit.Map.MapTypes.Hybrid
+            break;
+
+          case "MutedStandard":
+            map.mapType = mapkit.Map.MapTypes.MutedStandard
+            break;
+
+          case "Satellite":
+            map.mapType = mapkit.Map.MapTypes.Satellite
+            break;
+        
+          default:
+            map.mapType = mapkit.Map.MapTypes.Standard
+            break;
+        }
 
         if(JSON.parse(this.dataset.interactive) === false) {
           // https://developer.apple.com/documentation/mapkitjs/mapconstructoroptions
