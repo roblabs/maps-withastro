@@ -7,7 +7,10 @@ export interface Props {
   longitude: number
   
   /** The altitude of the camera relative to the elevation of the center of the map. https://developer.apple.com/documentation/mapkitjs/map/3257749-cameradistance */
-  cameradistance: number
+  cameradistance?: number
+
+  /** zoom or `zoomLevel` is a hidden API in MapKit JS. */
+  zoom?: number
   
   /** A DOM element, or the ID of a DOM element, to use as your map’s container.  https://developer.apple.com/documentation/mapkitjs/map/2973920-mapkit_map#parameters */
   container: string
@@ -40,6 +43,7 @@ export interface Props {
 const { 
   latitude, longitude,
   cameradistance,
+  zoom,
   container,
   interactive,
   maptype = "Standard",
@@ -54,6 +58,7 @@ const {
   data-latitude={latitude}
   data-longitude={longitude}
   data-cameradistance={cameradistance}
+  data-zoom={zoom}
   data-container={container}
   data-interactive={interactive}
   data-maptype={maptype}
@@ -85,9 +90,21 @@ const {
 
         //: MARK mapkit.Map
         // An embeddable interactive map that you add to a webpage.
-        var map = new mapkit.Map(this.dataset.container)        
-        map.center = new mapkit.Coordinate(Number(this.dataset.latitude), Number(this.dataset.longitude))
-        map.cameraDistance = Number(this.dataset.cameradistance)
+        var map = new mapkit.Map(this.dataset.container)
+        map.center = new mapkit.Coordinate(Number(this.dataset.latitude), Number(this.dataset.longitude))        
+
+        // If both `zoom` & `cameradistance` are defined,
+        //   then prioritize zoom
+        if(Number(this.dataset.zoom) > 0) {
+          console.log(`map._impl.zoomLevel: ${map._impl.zoomLevel}`)
+          map._impl.zoomLevel = Number(this.dataset.zoom)
+          console.log(`map._impl.zoomLevel: ${map._impl.zoomLevel}`)
+        } else {
+          console.log(`map.cameraDistance: ${map.cameraDistance}`)
+          map.cameraDistance = Number(this.dataset.cameradistance)
+          console.log(`map.cameraDistance: ${map.cameraDistance}`)
+          console.log(`map._impl.zoomLevel: ${map._impl.zoomLevel}`)
+        }
 
         //: MARK mapkit.TileOverlay
         // An overlay that covers an area of the map with bitmapped tiles.
@@ -153,7 +170,10 @@ const {
         map.addEventListener("error", function (event) { console.log(`❌ error: ${event.status}`) })
         map.addEventListener("map-type-change", function (event) { console.log(`🗺️ map-type-change ${event.target.mapType}`) })
         map.addEventListener("region-change-end", function(event) {
-          console.log(`▢ region-change-end 🔎 zoom: ${event.target._impl.zoomLevel}, 📏 cameraDistance: ${event.target.cameraDistance.toFixed(3)}, 📍 center: ${event.target.center}` )
+          console.log(`▢ region-change-end 🔎 zoom: ${event.target._impl.zoomLevel.toFixed(2)}, 📏 cameraDistance: ${event.target.cameraDistance.toFixed(2)}, 📍 center: ${event.target.center}` )
+          // event.target._impl._showsDefaultTiles = false
+          // event.target._impl._showsDefaultTiles = true
+          // console.log(event.target._impl._visibleFrame)
           event.target._impl._allowWheelToZoom = true
         })
     }
