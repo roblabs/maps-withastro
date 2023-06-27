@@ -12,6 +12,6 @@
   "dependencies": {
     "@astrojs/mdx": "^0.19.7",
     "astro": "^2.6.4",
-    "maps-withastro": "^0.0.1"
+    "maps-withastro": "^0.0.2"
   }
 }

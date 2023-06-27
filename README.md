@@ -56,13 +56,23 @@ See [demo/src/pages/index.astro](demo/src/pages/index.astro).
 
 ### MapKit with Astro
 
+* Use either `zoom` or `cameradistance`.  If both are given, then `zoom` is preferred.
+* Pass in JSON Web Token as either a URL or string
+  * jwt="http://localhost:3141/jwt"
+  * jwt="eyJhxGciO...."
+
 ```jsx
 <MapKit
   container="mapkitmap"
+  containerstyle="width: 512px; height: 512px"
   latitude={latitude}
   longitude={longitude}
   cameradistance={cameradistance}
+  zoom={zoom}
   interactive="false"
+  maptype="MutedStandard"
+  showstileinfo="false"
+  jwt="http://localhost:3141/jwt"
 />
 ```
 
