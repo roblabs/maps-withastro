@@ -2,6 +2,44 @@
 
 https://Astro.build is a great start for creating web sites.  This project allows you to bring Leaflet & MapLibre maps directly into Astro.
 
+## Demo
+
+The Astro Docs has a section on creating a `demo` directory for testing and demonstrating the component.  See https://docs.astro.build/en/reference/publish-to-npm/#creating-a-package
+
+We followed these notes to add `demo/` in the root of this project.  The Demo project supports Astro & MDX examples of displaying a map.
+
+    ├── demo
+    │   ├── public
+    │   │   ├── favicon.svg
+    │   │   └── jwt
+    │   ├── src
+    │   │   └── pages
+    │   │       ├── index.astro
+    │   │       └── mapkit.mdx
+
+## Astro Component
+
+To create the template, we started with the official Astro template `component` and started this project called `maps-withastro`.  See https://github.com/withastro/astro/tree/main/examples/component.
+
+```bash
+pnpm create astro@latest maps-withastro -- --template component
+```
+
+```bash
+# done for you, left here for replication notes
+# pnpm create astro@latest demo -- --template minimal
+```
+
+Astro + Leaflet, MapLibre or Mapbox
+
+![alt text](demo-leaflet-maplibre-mapbox.png)
+
+---
+
+Astro + MapKit
+
+![alt text](demo-mapkit.png)
+
 ## Architecture
 
 The architecture is to pass in Astro properties via an HTMLElement dataset property.  The pattern for the Leaflet map example is from an Astro project called `hello-astro`.  
@@ -82,24 +120,6 @@ Here are the steps taken to create this repo containing the Maps with Astro comp
 
 You can make use of these notes if you want to extend the Map components with Astro beyond Leaflet or MapLibre.
 
-## Astro Component
-
-To create the template, we started with the official Astro template `component` and started this project called `maps-withastro`.  See https://github.com/withastro/astro/tree/main/examples/component.
-
-```bash
-pnpm create astro@latest maps-withastro -- --template component
-```
-
-## Demo
-
-The Astro Docs has a section on creating a `demo` directory for testing and demonstrating the component.  See https://docs.astro.build/en/reference/publish-to-npm/#creating-a-package
-
-We followed these notes to add `demo/` in the root of this project.
-
-```bash
-pnpm create astro@latest demo -- --template minimal
-```
-
 ### Leaflet dependencies
 
 ```bash
@@ -124,36 +144,18 @@ pnpm create astro@latest demo -- --template minimal
 
 ### MapKit dependencies
 
-* https://www.npmjs.com/package/@types/apple-mapkit-js-browser
+For detailed information on the required fields for the JWT header and payload, see [Creating and Using Tokens with MapKit JS](https://developer.apple.com/documentation/mapkitjs/creating_and_using_tokens_with_mapkit_js).  The [MapKit JS Dashboard](https://maps.developer.apple.com/token-maker) also has a tool called *Create a Token*.
 
 ```bash
 # done for you, left here for replication notes
 # pnpm install @types/apple-mapkit-js-browser --save-dev --workspace-root
 ```
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```
-/
-├── index.ts
-├── demo
-│   └── Demo Astro project
-├── src
-│   └── MyComponent.astro
-│   └── Leaflet.astro
-├── tsconfig.json
-├── package.json
-```
-
-The `index.ts` file is the "entry point" for your package. Export your components in `index.ts` to make them importable from your package.
-
 ## 🧞 Commands
 All commands are run from the root of the project, from a terminal:
 
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `npm link`                | Registers this package locally.
+| Command                    | Action                                           |
+| :------------------------- | :----------------------------------------------- |
+| `npm link`                 | Registers this package locally. for use with `./demo`
 | `pnpm link maps-withastro` | Run in the `demo/` Astro project to install your components
-| `npm publish` | [Publishes](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages#publishing-unscoped-public-packages) this package to NPM. Requires you to be [logged in](https://docs.npmjs.com/cli/v8/commands/npm-adduser)
+| `npm publish`              | [Publishes](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages#publishing-unscoped-public-packages) this package to NPM. Requires you to be [logged in](https://docs.npmjs.com/cli/v8/commands/npm-adduser)

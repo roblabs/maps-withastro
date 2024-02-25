@@ -17,16 +17,13 @@
   ],
   "scripts": {},
   "devDependencies": {
-    "@types/apple-mapkit-js-browser": "^5.65.3",
-    "@types/leaflet": "^1.9.3",
-    "astro": "^2.6.4"
-  },
-  "peerDependencies": {
-    "astro": "^2.0.0-beta.0"
+    "@types/apple-mapkit-js-browser": "^5.65.7",
+    "@types/leaflet": "^1.9.8",
+    "astro": "^4.4.4"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
     "mapbox-gl": "1.5.1",
-    "maplibre-gl": "^3.1.0"
+    "maplibre-gl": "^4.0.2"
   }
 }
