@@ -1,6 +1,9 @@
 {
   "name": "maps-withastro",
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "contributors": [
+    {"name": "@RobLabs", "githubUsername": "roblabs", "url": "https://RobLabs.com"}
+  ],
   "type": "module",
   "exports": {
     ".": "./index.ts"
@@ -19,7 +22,7 @@
   "devDependencies": {
     "@types/apple-mapkit-js-browser": "^5.65.7",
     "@types/leaflet": "^1.9.8",
-    "astro": "^4.4.4"
+    "astro": "^4.4.6"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

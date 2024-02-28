@@ -11,7 +11,10 @@ export interface Props {
 
   /** zoom or `zoomLevel` is a hidden API in MapKit JS. */
   zoom?: number
-  
+
+  /** `rotation`, The map’s rotation, in degrees. https://developer.apple.com/documentation/mapkitjs/mapconstructoroptions/2992817-rotation */
+  rotation?: number
+
   /** A DOM element, or the ID of a DOM element, to use as your map’s container.  https://developer.apple.com/documentation/mapkitjs/map/2973920-mapkit_map#parameters */
   container: string
   
@@ -31,6 +34,7 @@ export interface Props {
    */
   maptype?: string
   
+  /** Style information for the map passed directly to the `<div>`, with a reasonable default. */
   containerstyle?: string
   
   /** Creates a tile overlay with a URL template. https://developer.apple.com/documentation/mapkitjs/mapkit/tileoverlay/2974035-mapkit_tileoverlay */
@@ -47,6 +51,7 @@ const {
   latitude, longitude,
   cameradistance,
   zoom,
+  rotation = 0,
   container,
   interactive,
   maptype = "Standard",
@@ -63,6 +68,7 @@ const {
   data-longitude={longitude}
   data-cameradistance={cameradistance}
   data-zoom={zoom}
+  data-rotation={rotation}
   data-container={container}
   data-interactive={interactive}
   data-maptype={maptype}
@@ -103,15 +109,17 @@ const {
         // If both `zoom` & `cameradistance` are defined,
         //   then prioritize zoom
         if(Number(this.dataset.zoom) > 0) {
-          console.log(`map._impl.zoomLevel: ${map._impl.zoomLevel}`)
+          console.log(`map._impl.zoomLevel: ${map._impl.zoomLevel.toFixed(6)}`)
           map._impl.zoomLevel = Number(this.dataset.zoom)
-          console.log(`map._impl.zoomLevel: ${map._impl.zoomLevel}`)
+          console.log(`map._impl.zoomLevel: ${map._impl.zoomLevel.toFixed(6)}`)
         } else {
-          console.log(`map.cameraDistance: ${map.cameraDistance}`)
+          console.log(`map.cameraDistance: ${map.cameraDistance.toFixed(1)}`)
           map.cameraDistance = Number(this.dataset.cameradistance)
-          console.log(`map.cameraDistance: ${map.cameraDistance}`)
-          console.log(`map._impl.zoomLevel: ${map._impl.zoomLevel}`)
+          console.log(`map.cameraDistance: ${map.cameraDistance.toFixed(1)}`)
+          console.log(`map._impl.zoomLevel: ${map._impl.zoomLevel.toFixed(6)}`)
         }
+
+        map.rotation = Number(this.dataset.rotation)
 
         //: MARK mapkit.TileOverlay
         // An overlay that covers an area of the map with bitmapped tiles.
@@ -164,6 +172,11 @@ const {
 
           /**  A Boolean value that determines whether the user may scroll the map with a pointing device or gestures on a touchscreen. */
           map.isScrollEnabled = false
+
+        /** A feature visibility setting that determines when the compass is visible. */
+        // https://developer.apple.com/documentation/mapkitjs/featurevisibility
+        // map.showsCompass = mapkit.FeatureVisibility.Visible
+        map.showsCompass = mapkit.FeatureVisibility.Hidden
         }
 
         if(JSON.parse(this.dataset.showstileinfo) === true) {
@@ -177,7 +190,8 @@ const {
         map.addEventListener("error", function (event) { console.log(`❌ error: ${event.status}`) })
         map.addEventListener("map-type-change", function (event) { console.log(`🗺️ map-type-change ${event.target.mapType}`) })
         map.addEventListener("region-change-end", function(event) {
-          console.log(`▢ region-change-end 🔎 zoom: ${event.target._impl.zoomLevel.toFixed(2)}, 📏 cameraDistance: ${event.target.cameraDistance.toFixed(2)}, 📍 center: ${event.target.center}` )
+          console.log(`🪢 region-change-end 🔎 zoomLevel: ${event.target._impl.zoomLevel.toFixed(6)}, 📏 cameraDistance: ${event.target.cameraDistance.toFixed(2)}, 📍 center: ${event.target.center} 🔄 rotation: ${event.target.rotation.toFixed(2)}` )
+          // console.log(`zoom,altitude,${event.target._impl.zoomLevel.toFixed(6)},${event.target.cameraDistance.toFixed(2)}`)
           // event.target._impl._showsDefaultTiles = false
           // event.target._impl._showsDefaultTiles = true
           // console.log(event.target._impl._visibleFrame)

@@ -1,3 +1,7 @@
+[![vscode.dev](https://img.shields.io/badge/Open_in_vscode.dev-Repo-blue)][vscode.dev]
+
+[vscode.dev]: https://vscode.dev/github/roblabs/maps-withastro "A lightweight version of VS Code running fully in the browser."
+
 # Creating an Astro Component template for Web Maps
 
 https://Astro.build is a great start for creating web sites.  This project allows you to bring Leaflet & MapLibre maps directly into Astro.
