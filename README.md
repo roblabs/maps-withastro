@@ -156,10 +156,11 @@ For detailed information on the required fields for the JWT header and payload, 
 ```
 
 ## 🧞 Commands
+
 All commands are run from the root of the project, from a terminal:
 
 | Command                    | Action                                           |
 | :------------------------- | :----------------------------------------------- |
-| `npm link`                 | Registers this package locally. for use with `./demo`
-| `pnpm link maps-withastro` | Run in the `demo/` Astro project to install your components
-| `npm publish`              | [Publishes](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages#publishing-unscoped-public-packages) this package to NPM. Requires you to be [logged in](https://docs.npmjs.com/cli/v8/commands/npm-adduser)
+| `npm link`                 | Registers this package locally. for use with `./demo` |
+| `pnpm link maps-withastro` | Run in the `demo/` Astro project to install your components |
+| `npm publish`              | [Publishes](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages#publishing-unscoped-public-packages) this package to NPM. Requires you to be [logged in](https://docs.npmjs.com/cli/v8/commands/npm-adduser) |

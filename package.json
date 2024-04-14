@@ -1,10 +1,11 @@
 {
   "name": "maps-withastro",
-  "version": "0.0.3",
+  "version": "0.0.3-a",
   "contributors": [
     {"name": "@RobLabs", "githubUsername": "roblabs", "url": "https://RobLabs.com"}
   ],
   "type": "module",
+  "main": "index.ts",
   "exports": {
     ".": "./index.ts"
   },
