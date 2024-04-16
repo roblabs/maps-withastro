@@ -22,3 +22,4 @@ pnpm-debug.log*
 
 # JSON Web Token
 demo/public/jwt
+demo/actions-runner
