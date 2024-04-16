@@ -53,6 +53,14 @@ The architecture is to pass in Astro properties via an HTMLElement dataset prope
 // SPDX-License-Identifier: MIT
 ```
 
+## Develop
+
+To do local development, change the dependency to the local workspace.
+
+```json
+"maps-withastro": "workspace:*"
+```
+
 See https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset
  
 ### Leaflet with Astro
