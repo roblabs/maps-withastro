@@ -1,5 +1,4 @@
 ---
-import "maplibre-gl/dist/maplibre-gl.css"
 export interface Props {
   latitude: number
   longitude: number
@@ -26,9 +25,13 @@ const { latitude, longitude, zoom, mapstyle, container, interactive, containerst
   data-containerstyle={containerstyle}
 >
 <div id={container} style={containerstyle}></div>
-<script>
-  import maplibregl from "maplibre-gl"
 
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" />
+{
+  /* Astro specific way to pull in MapLibre, `is:inline`:  https://docs.astro.build/en/reference/directives-reference/#isinline */
+}
+<script is:inline src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+<script>
   class MapLibreMap extends HTMLElement {
     constructor() {
       super()
@@ -43,5 +46,5 @@ const { latitude, longitude, zoom, mapstyle, container, interactive, containerst
     }
   }
 
-  customElements.define("maplibre-map", MapLibreMap);
+  window.customElements.define("maplibre-map", MapLibreMap);
 </script>

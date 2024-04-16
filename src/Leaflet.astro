@@ -1,5 +1,4 @@
 ---
-import "leaflet/dist/leaflet.css"
 export interface Props {
   latitude: number
   longitude: number
@@ -27,13 +26,14 @@ const { latitude, longitude, zoom, container, tileLayer, attribution, containers
 >
 <div id={container} style={containerstyle}></div>
 <script>
-  import L from "leaflet"
+  import "leaflet/dist/leaflet"
+  import "leaflet/dist/leaflet.css"
   
   class LeafletMap extends HTMLElement {
     constructor() {
       super()
 
-      const latlng: [number, number] = [Number(this.dataset.latitude), Number(this.dataset.longitude)]
+      const latlng = [Number(this.dataset.latitude), Number(this.dataset.longitude)]
 
       var map = L.map(this.dataset.container).setView(latlng, Number(this.dataset.zoom))
       L.tileLayer(
@@ -43,5 +43,5 @@ const { latitude, longitude, zoom, container, tileLayer, attribution, containers
     }
   }
 
-  customElements.define("leaflet-map", LeafletMap);
+  window.customElements.define("leaflet-map", LeafletMap);
 </script>

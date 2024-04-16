@@ -1,5 +1,4 @@
 ---
-import "mapbox-gl/dist/mapbox-gl.css"
 export interface Props {
   latitude: number
   longitude: number
@@ -29,13 +28,14 @@ const { latitude, longitude, zoom, mapstyle, container, accesstoken, interactive
 >
 <div id={container} style={containerstyle}></div>
 <script>
-  import mapboxgl from "mapbox-gl"
+  import { default as mapboxgl } from "mapbox-gl"
+  import "mapbox-gl/dist/mapbox-gl.css"
 
   class MapboxMap extends HTMLElement {
     constructor() {
       super()
 
-      mapboxgl.accessToken = this.dataset.accesstoken
+      mapboxgl.Map.accessToken = this.dataset.accesstoken
       var map = new mapboxgl.Map({
         container: this.dataset.container,
         interactive: JSON.parse(this.dataset.interactive),
@@ -46,5 +46,5 @@ const { latitude, longitude, zoom, mapstyle, container, accesstoken, interactive
     }
   }
 
-  customElements.define("mapbox-map", MapboxMap);
+  window.customElements.define("mapbox-map", MapboxMap);
 </script>
