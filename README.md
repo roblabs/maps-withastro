@@ -60,26 +60,32 @@ See https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset
 See [demo/src/pages/index.astro](demo/src/pages/index.astro).
 
 ```jsx
-<Leaflet 
-  latitude={latitude}
-  longitude={longitude}
-  zoom={zoom}
+import { Leaflet } from 'maps-withastro';
+---
+<Leaflet
   container="leafletmap"
-  tileLayer={tileLayer}
-  attribution={attribution}
+  latitude={32.795595}
+  longitude={-117.259191}
+  zoom={10}
+  tileLayer="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  attribution="© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+  containerstyle="width: 312px; height: 256px"
 />
 ```
 
 ### MapLibre with Astro
 
 ```jsx
+import { MapLibre } from 'maps-withastro';
+---
 <MapLibre
   container="maplibremap"
-  latitude={latitude}
-  longitude={longitude}
-  zoom={zoom}
-  mapstyle={mapstyle}
+  latitude="32.795595"
+  longitude="-117.259191"
+  zoom="3"
   interactive="true"
+  mapstyle="https://demotiles.maplibre.org/style.json"
+  containerstyle="width: 312px; height: 256px"
 />
 ```
 
@@ -104,16 +110,18 @@ See [demo/src/pages/index.astro](demo/src/pages/index.astro).
   * jwt="eyJhxGciO...."
 
 ```jsx
+import { MapKit } from 'maps-withastro';
+---
 <MapKit
   container="mapkitmap"
   containerstyle="width: 512px; height: 512px"
-  latitude={latitude}
-  longitude={longitude}
-  cameradistance={cameradistance}
-  zoom={zoom}
+  latitude={32.795595}
+  longitude={-117.259191}
+  cameradistance={10000}
+  zoom={10}
   interactive="false"
   maptype="MutedStandard"
-  showstileinfo="false"
+  showstileinfo="true"
   jwt="http://localhost:3141/jwt"
 />
 ```
