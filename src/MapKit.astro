@@ -1,54 +1,94 @@
 ---
 export interface Props {
-  /** The latitude, in degrees. */
+  /**
+   * The latitude, in degrees.
+   *
+   * Positive values indicate latitudes north of the equator. Negative values indicate latitudes south of the equator.
+   */
   latitude: number
 
-  /** The longitude, in degrees. */
+  /**
+   * The longitude, in degrees.
+   *
+   * Measurements are relative to the zero meridian, with positive values extending east of the meridian and negative values extending west of the meridian.
+   */
   longitude: number
-  
-  /** The altitude of the camera relative to the elevation of the center of the map. https://developer.apple.com/documentation/mapkitjs/map/3257749-cameradistance */
+
+  /** The altitude of the camera relative to the elevation of the center of the map.
+   *
+   * See https://developer.apple.com/documentation/mapkitjs/map/3257749-cameradistance
+   */
   cameradistance?: number
 
-  /** zoom or `zoomLevel` is a hidden API in MapKit JS. */
+  /**
+   * zoom or `zoomLevel` is a hidden API in MapKit JS.
+   *
+   * Undocumented MapKit JS feature
+   * */
   zoom?: number
 
-  /** `rotation`, The map’s rotation, in degrees. https://developer.apple.com/documentation/mapkitjs/mapconstructoroptions/2992817-rotation */
+  /** `rotation`, The map’s rotation, in degrees.
+   *
+   * See https://developer.apple.com/documentation/mapkitjs/mapconstructoroptions/2992817-rotation
+   */
   rotation?: number
 
-  /** A DOM element, or the ID of a DOM element, to use as your map’s container.  https://developer.apple.com/documentation/mapkitjs/map/2973920-mapkit_map#parameters */
+  /** A DOM element, or the ID of a DOM element, to use as your map’s container.
+   *
+   * See https://developer.apple.com/documentation/mapkitjs/map/2973920-mapkit_map#parameters
+   */
   container: string
-  
-  /** If `false`, the map will not respond to interaction.  This is a static map built with the full web map rendering API. */
+
+  /** If `false`, the map will not respond to interaction.
+   *
+   * This is the full  Apple Maps rendering, but as non-interactive, static map.
+   *
+   * This can be useful for generating maps as images.
+   */
   interactive?: boolean
-  
+
   /**
    * The type of map to display.
-
-   * `Hybrid` A satellite image of the area with road and road name layers on top.
-
-   * `MutedStandard` A street map that emphasizes your data over the underlying map details.
-
-   * `Satellite` A satellite image of the area.
-
-   * `Standard` A street map that shows the position of all roads and some road names.
+   *
+   * * `Hybrid` A satellite image of the area with road and road name layers on top.
+   *
+   * * `MutedStandard` A street map that emphasizes your data over the underlying map details.
+   *
+   * * `Satellite` A satellite image of the area.
+   *
+   * * `Standard` A street map that shows the position of all roads and some road names.
+   *
+   * See https://developer.apple.com/documentation/mapkitjs/map/maptypes
    */
   maptype?: string
-  
-  /** Style information for the map passed directly to the `<div>`, with a reasonable default. */
+
+  /** 
+   * Style information for the map passed directly to the `<div>`, with a reasonable default. 
+   */
   containerstyle?: string
-  
-  /** Creates a tile overlay with a URL template. https://developer.apple.com/documentation/mapkitjs/mapkit/tileoverlay/2974035-mapkit_tileoverlay */
+
+  /**
+   * Creates a tile overlay with a URL template.
+   *
+   * See https://developer.apple.com/documentation/mapkitjs/mapkit/tileoverlay/2974035-mapkit_tileoverlay
+   */
   urltemplate?: string
 
-  /** Undocumented MapKit JS feature */
+  /**
+   * Undocumented MapKit JS feature
+   */
   showstileinfo?: boolean
 
-  /** a signed JSON Web Token (JWT) to authenticate map initializations. See: https://developer.apple.com/documentation/mapkitjs/creating_and_using_tokens_with_mapkit_js */
+  /** a signed JSON Web Token (JWT) to authenticate map initializations. 
+
+   * See: https://developer.apple.com/documentation/mapkitjs/creating_and_using_tokens_with_mapkit_js
+  */
   jwt: string
 }
 
-const { 
-  latitude, longitude,
+const {
+  latitude,
+  longitude,
   cameradistance,
   zoom,
   rotation = 0,
@@ -60,7 +100,6 @@ const {
   showstileinfo = false,
   jwt
 } = Astro.props
-
 ---
 
 <mapkit-map
@@ -87,15 +126,22 @@ const {
   class MapKitMap extends HTMLElement {
     constructor() {
       super()
-      const jwt = this.dataset.jwt
+      var jwt = this.dataset.jwt
 
       mapkit.init({
             authorizationCallback: function(done) {
               if(jwt.toLowerCase().startsWith("http")) {
+
+                if(import.meta.env.DEV) {
+                  jwt = 'http://localhost:3141/localhost_3141.jwt'
+                  console.log(`import.meta.env.DEV == ${import.meta.env.DEV}: 🟡 Using a local JWT signed for local MapKit testing, localhost_3141.jwt`)
+                }
+
+                // Fetch JWT from the passed in server
                 fetch(jwt)
                     .then(res => res.text())
                     .then(done);
-              } else {
+              } else /* a raw JWT has been passed in */ {
                 done(jwt)
               }
             }

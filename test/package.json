@@ -1,8 +1,9 @@
 {
-  "name": "demo",
+  "name": "maps-with-astro-test",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
+    "github:runner": "cd actions-runner && ./run.sh",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -14,8 +15,7 @@
     "@popperjs/core": "^2.11.8",
     "@types/bootstrap": "^5.2.10",
     "astro": "^4.6.1",
-    "astro-bootstrap": "workspace:*",
     "bootstrap": "^5.3.3",
-    "maps-withastro": "workspace:*"
+    "maps-withastro": "../"
   }
 }
