@@ -18,7 +18,8 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: self-hosted # Switch to self-hosted for building locally.  https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
@@ -31,8 +32,7 @@ jobs:
 
   deploy:
     needs: build
-    # runs-on: ubuntu-latest
-    runs-on: self-hosted # Switch to self-hosted for building locally.  https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
