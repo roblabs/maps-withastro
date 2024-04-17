@@ -114,6 +114,11 @@ const {
                   jwt = 'http://localhost:3141/localhost_3141.jwt'
                   console.log(`import.meta.env.DEV == ${import.meta.env.DEV}: 🟡 Using a local JWT signed for local MapKit testing, localhost_3141.jwt`)
                 }
+
+                if(import.meta.env.PROD) {
+                  console.log(`import.meta.env.PROD == ${import.meta.env.PROD}: Passed in JWT, ${jwt}`)
+                }
+
                 fetch(jwt)
                     .then(res => res.text())
                     .then(done);
