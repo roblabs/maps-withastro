@@ -27,6 +27,6 @@
   },
   "dependencies": {
     "leaflet": "^1.9.4",
-    "mapbox-gl": "1.5.1"
+    "mapbox-gl": "^1.5.1"
   }
 }
