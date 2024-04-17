@@ -20,6 +20,5 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# JSON Web Token
-demo/public/jwt
+test/actions-runner
 demo/actions-runner
