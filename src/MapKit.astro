@@ -6,16 +6,26 @@ export interface Props {
   /** The longitude, in degrees. */
   longitude: number
   
-  /** The altitude of the camera relative to the elevation of the center of the map. https://developer.apple.com/documentation/mapkitjs/map/3257749-cameradistance */
   cameradistance?: number
+  /** The altitude of the camera relative to the elevation of the center of the map. 
+
+   * See https://developer.apple.com/documentation/mapkitjs/map/3257749-cameradistance
+  */
 
   /** zoom or `zoomLevel` is a hidden API in MapKit JS. */
   zoom?: number
 
-  /** `rotation`, The map’s rotation, in degrees. https://developer.apple.com/documentation/mapkitjs/mapconstructoroptions/2992817-rotation */
   rotation?: number
+  /** `rotation`, The map’s rotation, in degrees. 
 
-  /** A DOM element, or the ID of a DOM element, to use as your map’s container.  https://developer.apple.com/documentation/mapkitjs/map/2973920-mapkit_map#parameters */
+   * See https://developer.apple.com/documentation/mapkitjs/mapconstructoroptions/2992817-rotation
+   */
+
+  /** A DOM element, or the ID of a DOM element, to use as your map’s container.
+   * 
+   * See https://developer.apple.com/documentation/mapkitjs/map/2973920-mapkit_map#parameters
+  */
+
   container: string
   
   /** If `false`, the map will not respond to interaction.  This is a static map built with the full web map rendering API. */
@@ -31,20 +41,27 @@ export interface Props {
    * `Satellite` A satellite image of the area.
 
    * `Standard` A street map that shows the position of all roads and some road names.
+
+   * See https://developer.apple.com/documentation/mapkitjs/map/maptypes
    */
   maptype?: string
   
   /** Style information for the map passed directly to the `<div>`, with a reasonable default. */
   containerstyle?: string
   
-  /** Creates a tile overlay with a URL template. https://developer.apple.com/documentation/mapkitjs/mapkit/tileoverlay/2974035-mapkit_tileoverlay */
   urltemplate?: string
+  /** Creates a tile overlay with a URL template. 
+
+   * See https://developer.apple.com/documentation/mapkitjs/mapkit/tileoverlay/2974035-mapkit_tileoverlay 
+   */
 
   /** Undocumented MapKit JS feature */
   showstileinfo?: boolean
+  /** a signed JSON Web Token (JWT) to authenticate map initializations. 
 
-  /** a signed JSON Web Token (JWT) to authenticate map initializations. See: https://developer.apple.com/documentation/mapkitjs/creating_and_using_tokens_with_mapkit_js */
-  jwt: string
+   * See: https://developer.apple.com/documentation/mapkitjs/creating_and_using_tokens_with_mapkit_js
+  */
+   jwt: string
 }
 
 const { 
@@ -87,15 +104,20 @@ const {
   class MapKitMap extends HTMLElement {
     constructor() {
       super()
-      const jwt = this.dataset.jwt
+      var jwt = this.dataset.jwt
 
       mapkit.init({
             authorizationCallback: function(done) {
               if(jwt.toLowerCase().startsWith("http")) {
+
+                if(import.meta.env.DEV) {
+                  jwt = 'http://localhost:3141/localhost_3141.jwt'
+                  console.log(`import.meta.env.DEV == ${import.meta.env.DEV}: 🟡 Using a local JWT signed for local MapKit testing, localhost_3141.jwt`)
+                }
                 fetch(jwt)
                     .then(res => res.text())
                     .then(done);
-              } else {
+              } else /* a raw JWT has been passed in */ {
                 done(jwt)
               }
             }

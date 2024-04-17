@@ -1,18 +1,21 @@
-[![vscode.dev](https://img.shields.io/badge/Open_in_vscode.dev-Repo-blue)][vscode.dev]
-
-[vscode.dev]: https://vscode.dev/github/roblabs/maps-withastro "A lightweight version of VS Code running fully in the browser."
+[![vscode.dev](https://img.shields.io/badge/Open_in_vscode.dev-Repo-blue)][vscode.dev] 
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/roblabs/maps-withastro/deploy.yml)
 
 # Creating an Astro Component template for Web Maps
 
 https://Astro.build is a great start for creating web sites.  This project allows you to bring Leaflet & MapLibre maps directly into Astro.
 
-## Demo
+# Demo
 
-The Astro Docs has a section on creating a `demo` directory for testing and demonstrating the component.  See https://docs.astro.build/en/reference/publish-to-npm/#creating-a-package
+[![maps-withastro.RobLabs.com](https://img.shields.io/badge/🎲_🎲-Live_Demo-green)][maps-withastro.RobLabs.com]
 
-We followed these notes to add `demo/` in the root of this project.  The Demo project supports Astro & MDX examples of displaying a map.
+## Test
 
-    ├── demo
+The Astro Docs has a section on creating a `test` directory for testing and demonstrating the component.  See https://docs.astro.build/en/reference/publish-to-npm/#creating-a-package
+
+We followed these notes to add `test/` in the root of this project.  The Demo project supports Astro & MDX examples of displaying a map.
+
+    ├── test
     │   ├── public
     │   │   ├── favicon.svg
     │   │   └── jwt
@@ -177,6 +180,17 @@ All commands are run from the root of the project, from a terminal:
 
 | Command                    | Action                                           |
 | :------------------------- | :----------------------------------------------- |
-| `npm link`                 | Registers this package locally. for use with `./demo` |
-| `pnpm link maps-withastro` | Run in the `demo/` Astro project to install your components |
+| `npm link`                 | Registers this package locally. for use with `./test` |
+| `pnpm link maps-withastro` | Run in the `test/` Astro project to install your components |
 | `npm publish`              | [Publishes](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages#publishing-unscoped-public-packages) this package to NPM. Requires you to be [logged in](https://docs.npmjs.com/cli/v8/commands/npm-adduser) |
+
+
+<!-- Markdown Reference-style Links
+* The title attribute will be used as `alt` in the HTML anchor
+* Example
+  [link identifier]: URL "title attribute for the link"
+-->
+
+[vscode.dev]: https://vscode.dev/github/roblabs/maps-withastro "A lightweight version of VS Code running fully in the browser."
+
+[maps-withastro.RobLabs.com]: https://maps-withastro.RobLabs.com "🎲 🎲 Live_Demo"
